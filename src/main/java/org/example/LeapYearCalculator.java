@@ -1,13 +1,13 @@
 package org.example;
 
 public class LeapYearCalculator {
-    public static boolean isLapYear(int year){
-        if (year < 1 || year > 9999){
+    public static boolean isLeapYear(int year) {
+        if (year < 1 || year > 9999) {
             return false;
         } else {
-            if (year % 4 == 0){
-                if (year % 100 == 0){
-                    if (year % 400 == 0){
+            if (year % 4 == 0) {
+                if (year % 100 == 0) {
+                    if (year % 400 == 0) {
                         return true;
                     }
                 } else {
@@ -17,7 +17,8 @@ public class LeapYearCalculator {
             return false;
         }
     }
-    public static void main(String[] args){
-        System.out.println(isLapYear(400));
+
+    public static void main(String[] args) {
+        System.out.println(isLeapYear(400));
     }
 }
