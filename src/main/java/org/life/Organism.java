@@ -4,15 +4,21 @@ import java.util.Random;
 
 public class Organism {
 
+  private String name;
   private int energy;
   private Position position;
   private Random random = new Random();
 
-  public Organism(int energy) {
+  public Organism(int energy, String name) {
+    this.name = name;
     this.energy = energy;
   }
 
-  public void move() {
+  public void move(Board board) {
+
+    if (this.position == null)
+      return;
+
     int newX = position.getX();
     int newY = position.getY();
 
@@ -27,7 +33,13 @@ public class Organism {
       newX += random.nextBoolean() ? 1 : -1;
     }
 
+    board.moveOrganism(this, newX, newY);
     // TODO: Use the board's moveOrganism method to move the organism
+  }
+
+  public void eat(Organism prey) {
+    this.energy += prey.getEnergy();
+    prey.setEnergy(0); // Set the energy of the eaten organism to 0
   }
 
   public void setPosition(Position position) {
@@ -36,6 +48,18 @@ public class Organism {
 
   public Position getPosition() {
     return position;
+  }
+
+  public String getName(){
+    return name;
+  }
+
+  public int getEnergy() {
+    return energy;
+  }
+
+  public void setEnergy(int energy) {
+    this.energy = energy;
   }
 }
 
