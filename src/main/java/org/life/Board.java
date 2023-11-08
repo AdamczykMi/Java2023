@@ -22,7 +22,7 @@ public class Board {
     }
 
     public void moveOrganism(Organism organism, int newX, int newY) {
-        // TODO implement that one organism eats the other
+        // TODO implement that one organism eats the other DONE
         if (newX >= 0 && newX < width && newY >= 0 && newY < height && organisms[newX][newY] == null) {
             System.out.println(organism.getName() + " moved from (" + organism.getPosition().getX() + ", " + organism.getPosition().getY() + ") to (" + newX + ", " + newY + ")");
             organisms[organism.getPosition().getX()][organism.getPosition().getY()] = null;
@@ -44,5 +44,13 @@ public class Board {
         } else {
             System.out.println("Invalid move!");
         }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

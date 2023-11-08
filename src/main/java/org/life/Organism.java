@@ -33,8 +33,10 @@ public class Organism {
       newX += random.nextBoolean() ? 1 : -1;
     }
 
-    board.moveOrganism(this, newX, newY);
-    // TODO: Use the board's moveOrganism method to move the organism
+    if (newX >= 0 && newX < board.getWidth() && newY >= 0 && newY < board.getHeight()) {
+      board.moveOrganism(this, newX, newY);
+    }
+    // TODO: Use the board's moveOrganism method to move the organism DONE
   }
 
   public void eat(Organism prey) {
@@ -61,5 +63,7 @@ public class Organism {
   public void setEnergy(int energy) {
     this.energy = energy;
   }
+
+
 }
 
