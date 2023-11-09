@@ -31,9 +31,9 @@ public class Board {
 
         } else if (newX >= 0 && newX < width && newY >= 0 && newY < height && organisms[newX][newY] != null) {
             Organism existingOrganism = organisms[newX][newY];
-            if (existingOrganism != organism) {
-                System.out.println(organism.getName() + " at (" + newX + ", " + newY + ") has consumed " + existingOrganism.getName());
+            if (existingOrganism != organism && existingOrganism.getPosition() != null) {
                 System.out.println(organism.getName() + " moved from (" + organism.getPosition().getX() + ", " + organism.getPosition().getY() + ") to (" + newX + ", " + newY + ")");
+                System.out.println(organism.getName() + " at (" + newX + ", " + newY + ") has consumed " + existingOrganism.getName() + " and took all of his energy: " + existingOrganism.getEnergy());
                 organism.setPosition(new Position(newX, newY));
                 organism.eat(existingOrganism);
                 //organisms[organism.getPosition().getX()][organism.getPosition().getY()] = null;
@@ -52,5 +52,12 @@ public class Board {
 
     public int getHeight() {
         return height;
+    }
+
+    public Organism getOrganismAt(int x, int y) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            return organisms[x][y];
+        }
+        return null; // Return null if the coordinates are out of bounds
     }
 }

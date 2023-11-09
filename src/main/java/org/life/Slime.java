@@ -4,12 +4,10 @@ import java.util.Random;
 
 public class Slime extends Organism {
 
-    private int sightRadius;
-
-    public Slime(int energy, String name, int sightRadius) {
+    public Slime(int energy, String name) {
         super(energy, name);
-        this.sightRadius = sightRadius;
     }
+
 
     private Position position;
     private Random random = new Random();
@@ -19,25 +17,41 @@ public class Slime extends Organism {
         if (this.position == null)
             return;
 
-
         int newX = position.getX();
         int newY = position.getY();
 
-        // Decide whether to move vertically or horizontally
         boolean moveVertically = random.nextBoolean();
 
         if (moveVertically) {
             // Move up or down by 2
-            newY += random.nextBoolean() ? 2 : -2;
+            if (position.getY() >= 2 && position.getY() <= board.getHeight() - 3) {
+                newY += random.nextBoolean() ? 2 : -2;
+            } else if (position.getY() < 2) {
+                newY += 2;
+            } else if (position.getY() > board.getHeight() - 3) {
+                newY += -2;
+            }
         } else {
-            // Move left or right by 2
-            newX += random.nextBoolean() ? 2 : -2;
+            if (position.getX() >= 2 && position.getX() <= board.getWidth() - 3) {
+                newX += random.nextBoolean() ? 2 : -2;
+            } else if (position.getX() < 2) {
+                newX += 2;
+            } else if (position.getX() > board.getWidth() - 3) {
+                newX += -2;
+            }
         }
 
-        if (newX >= 0 && newX < board.getWidth() && newY >= 0 && newY < board.getHeight()) {
-            board.moveOrganism(this, newX, newY);
+        int sightRadius = 2;
+        for (int y = Math.max(0, newY - sightRadius); y <= Math.min(board.getHeight() - 1, newY + sightRadius); y++) {
+            for (int x = Math.max(0, newX - sightRadius); x <= Math.min(board.getWidth() - 1, newX + sightRadius); x++) {
+                Organism organism = board.getOrganismAt(x, y);
+                if (organism != null && organism != this && organism.getEnergy() != 0) {
+                    System.out.println(this.getName() + " wykrył organizm " + organism.getName() + " na pozycji (" + x + ", " + y + ")");
+                }
+            }
         }
 
+        board.moveOrganism(this, newX, newY);
     }
 
     @Override
@@ -50,5 +64,8 @@ public class Slime extends Organism {
         this.position = position;
     }
 
-
+    @Override
+    public void eat(Organism prey) {
+        super.eat(prey);
+    }
 }
