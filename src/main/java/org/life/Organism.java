@@ -43,12 +43,8 @@ public class Organism {
                 newX += -1;
             }
         }
-
         board.moveOrganism(this, newX, newY);
-
-        // TODO: Use the board's moveOrganism method to move the organism DONE
     }
-
 
     public void eat(Organism prey) {
         this.energy += prey.getEnergy();

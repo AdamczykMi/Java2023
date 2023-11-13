@@ -53,8 +53,8 @@ public class Dodo extends Organism {
         for (int y = Math.max(0, newY - sightRadius); y <= Math.min(board.getHeight() - 1, newY + sightRadius); y++) {
             for (int x = Math.max(0, newX - sightRadius); x <= Math.min(board.getWidth() - 1, newX + sightRadius); x++) {
                 Organism organism = board.getOrganismAt(x, y);
-                if (organism != null && organism != this) {
-                    System.out.println(this.getName() + " wykrył organizm " + organism.getName() + " na pozycji (" + x + ", " + y + ")");
+                if (organism != null && organism != this && organism.getEnergy() != 0) {
+                    System.out.println(this.getName() + " detected organism " + organism.getName() + " at position (" + x + ", " + y + ")" + " which has: " + organism.getEnergy() + " energy");
                 }
             }
         }

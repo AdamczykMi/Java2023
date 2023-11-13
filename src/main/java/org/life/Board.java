@@ -33,11 +33,9 @@ public class Board {
             Organism existingOrganism = organisms[newX][newY];
             if (existingOrganism != organism && existingOrganism.getPosition() != null) {
                 System.out.println(organism.getName() + " moved from (" + organism.getPosition().getX() + ", " + organism.getPosition().getY() + ") to (" + newX + ", " + newY + ")");
-                System.out.println(organism.getName() + " at (" + newX + ", " + newY + ") has consumed " + existingOrganism.getName() + " and took all of his energy: " + existingOrganism.getEnergy());
+                System.out.println(organism.getName() + " at (" + newX + ", " + newY + ") consumed " + existingOrganism.getName() + " and took all of his energy: " + existingOrganism.getEnergy());
                 organism.setPosition(new Position(newX, newY));
                 organism.eat(existingOrganism);
-                //organisms[organism.getPosition().getX()][organism.getPosition().getY()] = null;
-                //organisms[newX][newY] = organism;
                 organisms[existingOrganism.getPosition().getX()][existingOrganism.getPosition().getY()] = null;
                 existingOrganism.setPosition(null); // Remove the eaten organism from the board
             }

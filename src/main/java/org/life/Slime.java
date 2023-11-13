@@ -46,7 +46,7 @@ public class Slime extends Organism {
             for (int x = Math.max(0, newX - sightRadius); x <= Math.min(board.getWidth() - 1, newX + sightRadius); x++) {
                 Organism organism = board.getOrganismAt(x, y);
                 if (organism != null && organism != this && organism.getEnergy() != 0) {
-                    System.out.println(this.getName() + " wykrył organizm " + organism.getName() + " na pozycji (" + x + ", " + y + ")");
+                    System.out.println(this.getName() + " detected organism " + organism.getName() + " at position (" + x + ", " + y + ")" + " which has: " + organism.getEnergy() + " energy");
                 }
             }
         }
