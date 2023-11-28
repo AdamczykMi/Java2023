@@ -3,7 +3,6 @@ package org.studentresource.decorator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.studentresource.Course;
-import org.studentresource.decorator.CommentableResource;
 
 import static org.junit.jupiter.api.Assertions.*;
 

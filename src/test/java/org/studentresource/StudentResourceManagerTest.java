@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentResourceManagerTest {
-    private StudentResourceManager<Course> manager;
+
+    // changed from <Course> to <StudentResource>
+    private StudentResourceManager<StudentResource> manager;
 
     @BeforeEach
     void setUp() {
@@ -18,22 +20,19 @@ class StudentResourceManagerTest {
         Course course = new Course("CS101", "Introduction to Computer Science");
         manager.addResource(course);
 
-        Course retrieved = manager.getResource("CS101");
+        Course retrieved = (Course) manager.getResource("CS101");
         assertNotNull(retrieved, "Retrieved course should not be null.");
         assertEquals("Introduction to Computer Science", retrieved.getName(), "Course name should match.");
     }
 
+    // added RemoveResourceTest() on StudyMaterial
     @Test
     void removeResourceTest() {
-        Course course = new Course("CS101", "Introduction to Computer Science");
-        manager.addResource(course);
-
+        StudyMaterial material = new StudyMaterial("CS101", "Introduction to Computer Science");
+        manager.addResource(material);
         assertNotNull(manager.getResource("CS101"), "Resource should exist before removal.");
 
-        manager.removeResource(course);
-
-        assertNull(manager.getResource("CS101"), "Resource should exist before removal.");
+        manager.removeResource(material);
+        assertNull(manager.getResource("CS101"), "Resource removed");
     }
-
-    // Add more tests to cover all functionalities
 }
