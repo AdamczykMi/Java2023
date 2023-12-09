@@ -15,6 +15,7 @@ public class ShoppingCart {
 
     private final Inventory inventory;
     private final Map<Integer, Integer> cartItems = new HashMap<>();
+
     public ShoppingCart(Inventory inventory) {
         this.inventory = inventory;
     }
@@ -23,9 +24,17 @@ public class ShoppingCart {
         cartItems.merge(productId, quantity, Integer::sum); // Equivalent of lambda (a, b) -> Integer.sum(a, b)
     }
 
-    public synchronized void removeProductFromTheCart(int productId) throws ProductNotFoundException {
+    public synchronized void removeItem(int productId, int quantity) throws ProductNotFoundException {
         if (cartItems.containsKey(productId)) {
-            cartItems.remove(productId);
+            int currentQuantity = cartItems.get(productId);
+
+            if (currentQuantity > quantity) {
+                cartItems.put(productId, currentQuantity - quantity);
+            } else if (currentQuantity == quantity) {
+                cartItems.remove(productId);
+            } else {
+                throw new ProductNotFoundException("Attempted to remove more items than available in the cart for product with ID " + productId);
+            }
         } else {
             throw new ProductNotFoundException("Product with ID " + productId + " not found.");
         }
@@ -43,6 +52,14 @@ public class ShoppingCart {
         }
 
         return totalCost;
+    }
+
+    public synchronized int getItemQuantity(int productId) {
+        return cartItems.getOrDefault(productId, 0);
+    }
+
+    public synchronized void clearCart() {
+        cartItems.clear();
     }
 
     // See file: src/test/java/org/simplestore/service/ShoppingCartTest.java

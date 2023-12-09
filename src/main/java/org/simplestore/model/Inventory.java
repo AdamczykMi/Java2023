@@ -13,9 +13,10 @@ public class Inventory {
         products.put(product.getId(), product);
     }
 
-    public synchronized void removeProduct(int id) throws ProductNotFoundException{
+    public synchronized void removeProduct(int id) throws ProductNotFoundException {
         if (products.containsKey(id)) {
             products.remove(id);
+
         } else {
             throw new ProductNotFoundException("Product with ID " + id + " not found.");
         }
@@ -30,6 +31,11 @@ public class Inventory {
     }
 
     public Collection<Product> listAllProducts() {
+        for (Product product : products.values()) {
+            System.out.println("Product ID: " + product.getId() +
+                    ", Name: " + product.getName() +
+                    ", Price: " + product.getPrice());
+        }
         return products.values();
     }
 
