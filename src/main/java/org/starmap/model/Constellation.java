@@ -11,6 +11,7 @@ public class Constellation {
         this.name = name;
         this.stars = stars;
     }
+
     public void addStar(Star star) {
         stars.add(star);
     }
@@ -18,6 +19,7 @@ public class Constellation {
     public void removeStar(Star star) {
         stars.remove(star);
     }
+
     // Getters
     public String getName() {
         return name;

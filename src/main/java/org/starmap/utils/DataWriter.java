@@ -13,13 +13,11 @@ public class DataWriter {
 
     public static void saveDataToFile(String filePath, List<Star> stars, List<Constellation> constellations) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Zapisz gwiazdy
             for (Star star : stars) {
                 writer.write(String.format(Locale.US, "Star,%s,%.2f,%.2f,%.2f%n",
                         star.getName(), star.getXPosition(), star.getYPosition(), star.getBrightness()));
             }
 
-            // Zapisz gwiazdozbiory
             for (Constellation constellation : constellations) {
                 writer.write("Constellation," + constellation.getName() + ",");
                 List<Star> starsInConstellation = constellation.getStars();

@@ -18,6 +18,7 @@ import org.starmap.model.Star;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Button;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,7 @@ public class StarMapView extends Canvas {
         this.showCoordinates = showCoordinates;
         drawMap(); // Przerysuj mapę po zmianie opcji
     }
+
     private void initializeConstellationColors() {
         List<Constellation> constellations = controller.getConstellations();
         for (Constellation constellation : constellations) {
@@ -111,6 +113,7 @@ public class StarMapView extends Canvas {
             }
         }
     }
+
     private void drawCoordinates() {
         if (showCoordinates) {
             GraphicsContext gc = getGraphicsContext2D();

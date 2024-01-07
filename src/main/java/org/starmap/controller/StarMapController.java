@@ -89,7 +89,6 @@ public class StarMapController {
     public void editStar(Star star, String newName, double newBrightness) {
         star.setName(newName);
         star.setBrightness(newBrightness);
-        // Dodaj ewentualne aktualizacje dla innych parametrów gwiazdy
     }
 
 }
