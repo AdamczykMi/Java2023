@@ -18,7 +18,7 @@ public class ClientHandler implements Runnable {
 
     public ClientHandler(Socket socket) throws IOException, SQLException {
         this.clientSocket = socket;
-        this.chatbotLogic = new ChatbotLogic(new DatabaseConnection("jdbc:mysql://localhost:3306/chatbot_db", "root", "Addamczyk4231"));
+        this.chatbotLogic = new ChatbotLogic(new DatabaseConnection("jdbc:mysql://localhost:3306/chatbot_db", "chatbot-db", "haslo"));
     }
 
     @Override
