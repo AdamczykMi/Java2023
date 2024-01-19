@@ -27,31 +27,10 @@ public class ChatbotLogic {
         }
 
         try {
-
-            if (input.equalsIgnoreCase(CommandConstants.EXIT)) {
-                return new Response(ResponseType.EXIT, ResponseType.EXIT.getMessage());
-            }
-
             if (input.equalsIgnoreCase(CommandConstants.RESERVE)) {
-                // Simulate a reservation (replace with your actual logic)
-                // For demonstration purposes, let's assume the user provides reservation details.
-                // In a real scenario, you should gather input from the user.
-
-                // Replace the following lines with actual user input or a form of gathering reservation details
-                String customerName = "John Doe";
-                String reservationTime = "2023-01-01 19:00";
-                int numberOfGuests = 2;
-
-                try {
-                    // Add the reservation to the database
-                    dbConnection.addReservation(customerName, reservationTime, numberOfGuests);
-
-                    // Provide a success message
-                    return new Response(ResponseType.RESERVATION_SUCCESS, ResponseType.RESERVATION_SUCCESS.getMessage());
-                } catch (SQLException e) {
-                    // Handle any database-related errors
-                    return new Response(ResponseType.ERROR, ResponseType.ERROR.getMessage("Failed to add reservation: " + e.getMessage()));
-                }
+                // Logika dodawania rezerwacji, symulowane, nie bierze pod uwagę rzeczywistych danych z wejścia
+                dbConnection.addReservation("Klient", "2023-01-01 19:00", 2);
+                return new Response(ResponseType.RESERVATION_SUCCESS, ResponseType.RESERVATION_SUCCESS.getMessage());
             }
 
             if (input.equalsIgnoreCase(CommandConstants.SHOW_RESERVATIONS)) {
@@ -59,15 +38,12 @@ public class ChatbotLogic {
                 StringBuilder sb = new StringBuilder(ResponseType.RESERVATION_LIST.getMessage() + "\n");
 
                 while (rs.next()) {
-                    int reservationId = rs.getInt("reservation_id");
-                    String customerName = rs.getString("customer_name");
-                    String reservationTime = rs.getString("reservation_time");
-                    int numberOfGuests = rs.getInt("number_of_guests");
-
-                    sb.append(String.format("ID: %d, Customer: %s, Time: %s, Guests: %d%n",
-                            reservationId, customerName, reservationTime, numberOfGuests));
+                    sb.append("reservation_ID: ").append(rs.getInt("reservation_id"))
+                            .append(", Klient: ").append(rs.getString("customer_name"))
+                            .append(", Czas: ").append(rs.getString("reservation_time"))
+                            .append(", Liczba gości: ").append(rs.getInt("number_of_guests"))
+                            .append("\n");
                 }
-
                 rs.close();
                 return new Response(ResponseType.RESERVATION_LIST, sb.toString());
             }
@@ -89,8 +65,8 @@ public class ChatbotLogic {
 
             if (input.startsWith(CommandConstants.DELETE_RESERVATION)) {
                 try {
-                    // TODO: Implementacja usuwania rezerwacji - przeparsuj reservationId z odpowiedzi klienta
-                    int reservationId = Integer.parseInt(input.substring(CommandConstants.DELETE_RESERVATION.length()).trim());
+                    String reservationIdStr = input.substring(CommandConstants.DELETE_RESERVATION.length()).trim();
+                    int reservationId = Integer.parseInt(reservationIdStr);
                     pendingReservationId = reservationId;
                     awaitingConfirmation = true;
                     return new Response(ResponseType.CONFIRMATION_REQUEST, ResponseType.CONFIRMATION_REQUEST.getMessage(reservationId));

@@ -12,12 +12,10 @@ public class ChatClient {
     private BufferedReader userInputReader;
 
     public ChatClient(String address, int port) throws Exception {
-        // TODO Zainicjuj połączenie z serwerem chatu
         socket = new Socket(address, port);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
         userInputReader = new BufferedReader(new InputStreamReader(System.in));
-        // ...
     }
 
     public void send(String message) {
@@ -36,23 +34,18 @@ public class ChatClient {
     }
 
     public static void main(String[] args) throws Exception {
-        ChatClient client = new ChatClient("localhost", 3306);
-
+        ChatClient client = new ChatClient("localhost", 1234);
+        System.out.println("Chatbot says: " + client.receive());
         System.out.println("Connected to chatbot. Type your messages:");
-        // TODO Zaimplementuj pętlę do komunikacji z serwerem
-        //  która wczytuje input z konsoli, przesyła do serwera i odbiera odpowiedź
+
         try {
             while (true) {
-                System.out.print("You: ");
                 String userInput = client.userInputReader.readLine();
-                if (userInput.equalsIgnoreCase("exit")) {
+                if (userInput.equalsIgnoreCase("quit")) {
                     break;
                 }
-
                 client.send(userInput);
-
-                String response = client.receive();
-                System.out.println("Chatbot says: " + response);
+                System.out.println("Chatbot says: " + client.receive());
             }
         } finally {
             client.close();

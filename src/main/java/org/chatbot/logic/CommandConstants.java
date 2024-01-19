@@ -6,5 +6,4 @@ public class CommandConstants {
     public static final String DELETE_RESERVATION = "Usuń rezerwację";
     public static final String CONFIRM = "tak";
     public static final String DENY = "nie";
-    public static final String EXIT = "exit";
 }
